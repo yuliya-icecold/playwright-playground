@@ -1,17 +1,3 @@
-const build = {
-  new: false,
-  runTests: () => {
-    // ...
-  }
-}
-if (build.new) {
-  build.runTests()
-}
-
-checkIfNewBuild(build.runtests)
-
-build.runTests()
-
 const { test, expect } = require('@playwright/test')
 test.beforeEach(async ({page}) => {
   await page.goto("https://www.google.com/")

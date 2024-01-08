@@ -200,3 +200,104 @@ test("pass odd number", () => {
     expect(evenOrOdd(21)).toBe("odd")
     expect(isEven(1)).toBeFalsy()
 })
+
+class X {
+    constructor() {
+        this.z = 1989
+        // return this === no return
+    }
+
+    f() {
+        console.log('hello', this.y)
+    }
+    //....
+}
+
+const x = new X()
+x.y = 'Vasya'
+x.f()
+
+// --- we need to go deeper ---
+
+function XX() {
+    this.z = 1989
+    // return this === no return
+}
+
+XX.prototype.f = function() {
+    console.log('hello', this.y)
+}
+
+const xx = new XX()
+xx.y = 'Vasya'
+xx.f()
+
+// --- MOAR deeper ---
+
+// function XX ...
+
+function _new(Constructor) {
+    const thiz = { __proto__: Constructor.prototype }
+    let instance = Constructor.call(thiz)
+    if (instance === undefined) {
+        instance = thiz
+    }
+    return instance
+}
+const xxx = _new(XX)
+xxx.y = 'Vasya'
+xxx.f()
+
+// ---
+
+function Vector(x, y, z) {
+    const v = {
+        x, y, z,
+
+        distanceTo(otherVector) {
+            //
+        }
+        //...
+    }
+    return v
+}
+
+const v1 = Vector(1, 0, 0)
+const v2 = Vector(2, 3, 1)
+
+// --
+
+function Vector(x, y, z) {
+    this.x = x
+    this.y = y
+    this.z = z
+}
+
+Vector.prototype.distanceTo = function(otherVector) {
+    //...
+}
+
+const vv1 = new Vector(1, 0, 0)
+const vv2 = new Vector(2, 3, 1)
+
+
+//-----------------
+
+;[
+    {
+        name: 'a',
+        parent: null,
+    },
+    {
+        name: 'b',
+        parent: 'a'
+    },
+    {
+        name: 'c',
+        parent: 'b'
+    },
+    {
+        name: 'd',
+        parent: 'b'
+    },
+]
