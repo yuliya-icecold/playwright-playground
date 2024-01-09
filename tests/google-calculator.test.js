@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test')
+// open google calculator - this is performed before each test:
 test.beforeEach(async ({page}) => {
   await page.goto("https://www.google.com/")
   await page.getByRole('button', { name: 'Odrzuć wszystko' }).click()
@@ -11,6 +12,7 @@ test.beforeEach(async ({page}) => {
 test.use({ 
     locale: 'en-US',
   })
+// google calculator tests:
 test("Multiplication", async ({page}) => {
   const calculator = page.locator('*', {has: page.getByRole("heading", {name: "Calculator result"})}).last()
   await calculator.getByRole("button", {name: "2"}).click()
